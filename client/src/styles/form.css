@@ -1,0 +1,54 @@
+.form{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    height:400px;
+    justify-content: center;
+}
+.inputs{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 30%;
+}
+.inputDivs{
+    margin: 2%;
+}
+.labels{
+    display: flex;
+    flex-direction: column;
+    width: 10%;
+}
+.label{
+    margin: 7%;
+}
+.checkboxes{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    height: 200px;
+}
+.checkcontainer{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-height: 70%;
+}
+.title{
+    text-align: center;
+}
+.button{
+    display: flex;
+    justify-content: center;
+}
+.falseValidation{
+    border-color: red;
+    color: red;
+}
+.trueValidation{
+   
+    border-color: green;
+}

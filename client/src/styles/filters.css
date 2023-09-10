@@ -1,0 +1,27 @@
+.filters{
+    margin: 1%;
+    display: flex;
+    justify-content: center;
+    background-color: #FBEEAC;
+}
+.element{
+    margin: 2px;
+    margin-left: 8px;
+}
+.button{
+    background-color: #75C2F6; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 15px;
+    color: black;
+}
+.select{
+    height: 25px;
+    text-align: center;
+    margin: 1px;
+}

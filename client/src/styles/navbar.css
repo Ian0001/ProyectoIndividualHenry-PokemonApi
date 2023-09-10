@@ -1,0 +1,35 @@
+.navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #b69a3f;
+    position: fixed;
+    width: 100%;
+}
+.buttonDiv{
+    margin: 1%;
+}
+.search{
+    display: flex;
+    height: 35px;
+    justify-content: center;
+    margin: 1%;
+    align-items: center;
+}
+.button{
+    background-color: #75C2F6; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 15px;
+    color: black;
+}
+.searchinput{
+    height:25px;
+    width: 120px;
+    margin: 10px;
+}

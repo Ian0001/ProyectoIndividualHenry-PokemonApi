@@ -1,0 +1,10 @@
+.cards{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: space-around;
+    background-color: #1D5D9B;
+}
+.body{
+    background-color: #FBEEAC;
+}
