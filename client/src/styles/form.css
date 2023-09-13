@@ -4,6 +4,8 @@
     align-items: center;
     height:400px;
     justify-content: center;
+    background-color: #5791ca;
+    
 }
 .inputs{
     display: flex;
@@ -40,9 +42,10 @@
 .title{
     text-align: center;
 }
-.button{
+.submit{
     display: flex;
     justify-content: center;
+    
 }
 .falseValidation{
     border-color: red;
@@ -52,3 +55,21 @@
    
     border-color: green;
 }
+.button{
+    background-color: #75C2F6; 
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 15px;
+    color: black;
+    width: 180px;
+}
+.bottom{
+    background-color: #5791ca;
+    height: 100vh;
+    
+}
+

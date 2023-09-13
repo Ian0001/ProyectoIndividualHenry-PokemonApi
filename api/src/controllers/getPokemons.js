@@ -1,10 +1,10 @@
-const {Pokemon}= require("../db")
+const {Pokemon, Type}= require("../db")
 const axios=require("axios");
 const getPokemons= async(pokemonName) => {
     if(pokemonName) {
         //chequeo si existe en DB
-        const pokemonDb= await Pokemon.findOne({where:{name:pokemonName}});
-        if(pokemonDb) return pokemonDb;
+        const pokemonDb= await Pokemon.findOne({where:{name:pokemonName}, include:{model:Type, attributes: ["name"]}});
+        if(pokemonDb)  return pokemonDb;
         //si no existe en DB lo busco en api
         const apiResponse= await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
         const name= apiResponse.data.name;
@@ -20,7 +20,7 @@ const getPokemons= async(pokemonName) => {
         const pokemon= {id, name, image, life, attack, defense, speed, height, weight, types};
         return pokemon;
     };//si no hay query traigo todo los pokemons
-    const apiResponse= await axios.get("https://pokeapi.co/api/v2/pokemon/?limit=30");//traera 30 pokemon
+    const apiResponse= await axios.get("https://pokeapi.co/api/v2/pokemon/?limit=60");//traera 60 pokemon
     const {results}= apiResponse.data;
     const pokemons= await Promise.all(results.map(async(pokemon)=>{
         const urlResponse=await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`);

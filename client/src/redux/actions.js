@@ -17,12 +17,9 @@ export const getPokemons = () => {
   }
 };
 
-export const getPokemonByName = (name) => {
+export const getPokemonByName = (data) => {
   try {
-    const endpoint = `http://localhost:3001/pokemons/?name=${name}`;
     return async (dispatch) => {
-      const apiResponse = await axios.get(endpoint);
-      const { data } = apiResponse;
       dispatch({ type: GET_POKEMON_BY_NAME, payload: data });
     };
   } catch (error) {

@@ -18,12 +18,12 @@ const Detail = () => {
     return setDetail({});
   }, [id]);
   return (
-    <div>
+    <div className="background">
       <NavBar></NavBar>
       <br></br><br></br><br></br>
       <div className="detail">
         <div className="text">
-          <img src={detail.image} alt="imagen"></img>
+          <img className="imagedetail" src={detail.image} alt="imagen"></img>
           <h3>Name: {detail.name}</h3>
           <h3>Attack: {detail.attack}</h3>
           <h3>Defense: {detail.defense}</h3>
@@ -34,7 +34,7 @@ const Detail = () => {
           <h3>
             Types:
             {detail.types?.map((element) => (
-              <li key={element}>{element}</li>
+              <li key={element.name?element.name:element}>{element.name?element.name:element}</li>
             ))}
           </h3>
         </div>

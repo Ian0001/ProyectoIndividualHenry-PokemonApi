@@ -2,7 +2,12 @@ import { useState } from "react";
 import "../styles/form.css";
 import NavBar from "./navbar";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getPokemonByName } from "../redux/actions";
 const Form = () => {
+  const navigate= useNavigate();
+  const dispatch= useDispatch();
   const [pokemonData, setPokemonData]= useState({
     name:"",
     image:"",
@@ -23,6 +28,16 @@ const Form = () => {
       else setPokemonData({...pokemonData, types:[...pokemonData.types, event.target.value]})
       return
     };
+    if(event.target.name==="life"||event.target.name==="attack"||event.target.name==="defense"||
+    event.target.name==="weight"||event.target.name==="height"||event.target.name==="speed") {
+      if( typeof Number(event.target.value) === "number") {
+        return setPokemonData({
+          ...pokemonData,
+          [event.target.name]:Number(event.target.value)
+        })
+      }
+      
+    }
     setPokemonData({
      ...pokemonData,
      [event.target.name]:event.target.value
@@ -31,13 +46,15 @@ const Form = () => {
 
   const handleSubmit=async()=>{
     try {
-      await axios.post(`http://localhost:3001/pokemons`, pokemonData)
+      await axios.post(`http://localhost:3001/pokemons`, pokemonData);
+      window.alert("Pokemon Creado!");
+      navigate("/home");
     } catch (error) {
       console.log(error.message);
     }
   }
   return (
-    <div>
+    <div className="bottom">
       <NavBar></NavBar><br></br><br></br>
       <h2 className="title">Crea tu propio Pokemon!</h2>
       <div>
@@ -51,6 +68,7 @@ const Form = () => {
             <label className="label">Velocidad:</label>
             <label className="label">Altura:</label>
             <label className="label">Peso:</label>
+            <p></p>
           </div>
           <div className="inputs">
             <div className="inputDivs">
@@ -60,23 +78,24 @@ const Form = () => {
               <input id="image" className={pokemonData.image.length>0 ?"trueValidation":"falseValidation"} name="image"onChange={handleChange} value={pokemonData.image} placeholder="Debe ingresar un Url" type="text"></input>
             </div>
             <div className="inputDivs">
-              <input name="life"onChange={handleChange} value={pokemonData.life} placeholder="Vida" min={0} type="number"></input>
+              <input name="life"onChange={handleChange} className={pokemonData.life>0 ?"trueValidation":"falseValidation"} value={pokemonData.life} placeholder="Vida" ></input>
             </div>
             <div className="inputDivs">
-              <input name="attack"onChange={handleChange} value={pokemonData.attack} placeholder="Ataque"min={0} type="number"></input>
+              <input name="attack"onChange={handleChange} className={pokemonData.attack>0 ?"trueValidation":"falseValidation"} value={pokemonData.attack} placeholder="Ataque"></input>
             </div>
             <div className="inputDivs">
-              <input name="defense"onChange={handleChange} value={pokemonData.defense} placeholder="Defensa"min={0} type="number"></input>
+              <input name="defense"onChange={handleChange} className={pokemonData.defense>0 ?"trueValidation":"falseValidation"} value={pokemonData.defense} placeholder="Defensa"></input>
             </div>
             <div className="inputDivs">
-              <input name="speed"onChange={handleChange} value={pokemonData.speed} placeholder="Velocidad"min={0} type="number"></input>
+              <input name="speed"onChange={handleChange} className={pokemonData.speed>0 ?"trueValidation":"falseValidation"} value={pokemonData.speed} placeholder="Velocidad"></input>
             </div>
             <div className="inputDivs">
-              <input name="height"onChange={handleChange} value={pokemonData.height} placeholder="Altura"min={0} type="number"></input>
+              <input name="height"onChange={handleChange} className={pokemonData.height>0 ?"trueValidation":"falseValidation"} value={pokemonData.height} placeholder="Altura"></input>
             </div>
             <div className="inputDivs">
-              <input name="weight"onChange={handleChange} value={pokemonData.weight} placeholder="Peso"min={0} type="number"></input>
+              <input name="weight"onChange={handleChange} className={pokemonData.weight>0 ?"trueValidation":"falseValidation"} value={pokemonData.weight} placeholder="Peso"></input>
             </div>
+            <p></p>
           </div>
           <div className="checkcontainer">
             <div><h3>Tipos de tu Pokemon</h3></div>
@@ -124,9 +143,12 @@ const Form = () => {
           </div>
         </form>
       </div>
-      <div className="button">
-        {(pokemonData.name.length&&pokemonData.image.length&&pokemonData.types.length)
-        ?<button onClick={handleSubmit} type="submit">Submit Pokemon!</button>:<p className="falseValidation">Complete los campos obligatorios!</p>}
+      <div className="submit">
+        {(pokemonData.name.length&&pokemonData.image.length&&pokemonData.types.length&&
+        pokemonData.life>0&&pokemonData.attack>0&&pokemonData.defense>0&&pokemonData.speed>0&&
+        pokemonData.height>0&&pokemonData.weight>0)
+        ?<button className="button" onClick={handleSubmit} type="submit">Submit Pokemon!</button>
+        :<p className="falseValidation">Complete los campos obligatorios!</p>}
       </div>
     </div>
     

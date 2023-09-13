@@ -1,19 +1,31 @@
 import { getPokemonByName } from "../redux/actions";
 import PokemonsCards from "./pokemonsCards";
 import NavBar from "./navbar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getPokemons } from "../redux/actions";
 import Filters from "./filters";
+import axios from "axios";
 import "../styles/home.css";
 const Home = () => {
+  const [found, setFound]= useState(true)
   const dispatch = useDispatch();
-  const onSearch = (name) => {
-    dispatch(getPokemonByName(name));
+  const onSearch = async(name) => {
+    try {
+      const endpoint = `http://localhost:3001/pokemons/?name=${name}`;
+      const apiResponse = await axios.get(endpoint);
+      const { data } = apiResponse;
+      dispatch(getPokemonByName(data));
+      setFound(true);
+    } catch (error) {
+      console.log(error.message);
+      setFound(false)
+    }
   };
   useEffect(() => {
     dispatch(getPokemons());
   }, [dispatch]);
+
   return (
     <div className="body">
       <NavBar onSearch={onSearch}></NavBar>
@@ -21,7 +33,8 @@ const Home = () => {
       <br></br>
       <br></br>
       <Filters></Filters>
-      <div className="cards">
+      <div >
+        {found===true?"":<p className="badSearch">No existe un pokemon con ese nombre!</p>}
         <PokemonsCards></PokemonsCards>
       </div>
     </div>

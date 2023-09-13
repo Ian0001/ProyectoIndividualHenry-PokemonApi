@@ -1,4 +1,24 @@
 .cards{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    align-content: space-around;
+    background-color: #1D5D9B;
+}
+.button{
+    background-color: #75C2F6; /* Green */
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 15px;
+    color: black;
+    width: 100px;
+}
+.page{
+    display: flex;
+    justify-content: center;
+    background-color: #1D5D9B;
 }

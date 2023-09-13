@@ -2,7 +2,33 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin-top: 10%;
-    height: 200px;
-    justify-content: space-between;
+    height: 100vh;
+    justify-content:center;
+    background-color: rgb(56, 121, 121);
+    background-image: url("https://i.redd.it/e2aiwmfjv0g51.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-x: center;
+}
+.body{
+    height: 100%;
+}
+.text{
+    color: rgb(2, 1, 1);
+    font-size: 80px;
+    text-decoration: underline;
+    background-color: #75C2F6;
+}
+.button{
+    background-color: #75C2F6; 
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 15px;
+    color: black;
+    width:200px;
 }

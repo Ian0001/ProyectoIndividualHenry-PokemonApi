@@ -11,3 +11,7 @@
     display: flex;
     align-self: baseline;
 }
+.image{
+    width: 96px;
+    height: 100px;
+}

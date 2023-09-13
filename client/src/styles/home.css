@@ -1,10 +1,13 @@
 .cards{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: space-around;
     background-color: #1D5D9B;
 }
 .body{
     background-color: #FBEEAC;
+    height: 600px;
+}
+.badSearch{
+    color: red;
+    text-align: center;
+    font-size: large;
+    font-weight: 600;
 }
