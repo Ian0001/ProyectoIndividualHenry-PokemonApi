@@ -7,7 +7,7 @@ const Landing = () => {
   };
   return (
     <div className="landing">
-      <h1 className="text">Pokemon App!</h1>
+      <h1 className="textLanding">Pokemon App!</h1>
       <button className="button" onClick={onClick}>
         Ir a Home
       </button>

@@ -15,3 +15,6 @@
     width: 96px;
     height: 100px;
 }
+.image:hover{
+    border: 2px solid #e0d9d9;
+}

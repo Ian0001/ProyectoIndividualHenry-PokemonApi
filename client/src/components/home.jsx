@@ -8,7 +8,7 @@ import Filters from "./filters";
 import axios from "axios";
 import "../styles/home.css";
 const Home = () => {
-  const [found, setFound]= useState(true)
+  const [found, setFound]= useState(true)//para cuando no se encuentre un pokemon
   const dispatch = useDispatch();
   const onSearch = async(name) => {
     try {

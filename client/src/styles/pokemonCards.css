@@ -6,7 +6,7 @@
     background-color: #1D5D9B;
 }
 .button{
-    background-color: #75C2F6; /* Green */
+    background-color: #75C2F6; 
     border: none;
     padding: 10px 20px;
     text-align: center;
@@ -21,4 +21,10 @@
     display: flex;
     justify-content: center;
     background-color: #1D5D9B;
+}
+.onPage{
+    background-color: #75C2F6;
+}
+.offPage{
+    background-color: aliceblue;
 }

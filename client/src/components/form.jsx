@@ -3,11 +3,10 @@ import "../styles/form.css";
 import NavBar from "./navbar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { getPokemonByName } from "../redux/actions";
+
 const Form = () => {
   const navigate= useNavigate();
-  const dispatch= useDispatch();
+  
   const [pokemonData, setPokemonData]= useState({
     name:"",
     image:"",
@@ -17,10 +16,22 @@ const Form = () => {
     speed:0,
     height:0,
     weight:0,
-    types:[]
+    types:[],
   });
 
+  const [url, setUrl]= useState(false)
+
+  const checkUrl=(url) => {
+    try {
+      new URL(url);
+      return true;
+    } catch (err) {
+      return false;
+    }
+  };
+
   const handleChange=(event)=>{
+    if(event.target.name==="image") setUrl(checkUrl(event.target.value)) 
     if(event.target.name==="types") {
       if(pokemonData.types.includes(event.target.value)) {
         setPokemonData({...pokemonData, types:[...pokemonData.types.filter(type=>type!==event.target.value)]})
@@ -36,7 +47,6 @@ const Form = () => {
           [event.target.name]:Number(event.target.value)
         })
       }
-      
     }
     setPokemonData({
      ...pokemonData,
@@ -50,7 +60,7 @@ const Form = () => {
       window.alert("Pokemon Creado!");
       navigate("/home");
     } catch (error) {
-      console.log(error.message);
+      window.alert("Ya existe un pokemon con ese nombre");
     }
   }
   return (
@@ -75,7 +85,7 @@ const Form = () => {
               <input id="name" className={pokemonData.name.length>0 ?"trueValidation":"falseValidation"} name="name" onChange={handleChange} value={pokemonData.name} placeholder="Debe ingresar un nombre" type="text"></input>
             </div>
             <div className="inputDivs">
-              <input id="image" className={pokemonData.image.length>0 ?"trueValidation":"falseValidation"} name="image"onChange={handleChange} value={pokemonData.image} placeholder="Debe ingresar un Url" type="text"></input>
+              <input id="image" className={pokemonData.image.length>0&&url===true ?"trueValidation":"falseValidation"} name="image"onChange={handleChange} value={pokemonData.image} placeholder="Debe ingresar un Url" type="text"></input>
             </div>
             <div className="inputDivs">
               <input name="life"onChange={handleChange} className={pokemonData.life>0 ?"trueValidation":"falseValidation"} value={pokemonData.life} placeholder="Vida" ></input>
@@ -146,7 +156,7 @@ const Form = () => {
       <div className="submit">
         {(pokemonData.name.length&&pokemonData.image.length&&pokemonData.types.length&&
         pokemonData.life>0&&pokemonData.attack>0&&pokemonData.defense>0&&pokemonData.speed>0&&
-        pokemonData.height>0&&pokemonData.weight>0)
+        pokemonData.height>0&&pokemonData.weight>0&&url===true)
         ?<button className="button" onClick={handleSubmit} type="submit">Submit Pokemon!</button>
         :<p className="falseValidation">Complete los campos obligatorios!</p>}
       </div>
