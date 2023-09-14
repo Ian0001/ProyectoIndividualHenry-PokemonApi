@@ -17,10 +17,13 @@ export const getPokemons = () => {
   }
 };
 
-export const getPokemonByName = (data) => {
+export const getPokemonByName = (pokemon) => {
   try {
+    if(pokemon.id.length>4) {//para los de la DB
+      pokemon.types= pokemon.types?.map((element)=> ({type:{name:element.name}}))
+    };
     return async (dispatch) => {
-      dispatch({ type: GET_POKEMON_BY_NAME, payload: data });
+      dispatch({ type: GET_POKEMON_BY_NAME, payload: pokemon });
     };
   } catch (error) {
     console.log(error.message);

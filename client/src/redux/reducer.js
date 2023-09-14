@@ -31,7 +31,8 @@ const reducer = (state = initialState, action) => {
           aux: pokemonsModified,
         };
       } //si no, lo agrego
-      else return { ...state, pokemons: [action.payload, ...state.pokemons] };
+      else return { ...state, pokemons: [action.payload, ...state.pokemons],
+        aux:[action.payload, ...state.aux], auxOrigin:[action.payload, ...state.auxOrigin] };
     case FILTER_TYPE:
       if (action.payload === "none") return { ...state, pokemons: state.aux };
       const typeFiltered = state.aux.filter((poke) =>

@@ -4,6 +4,7 @@
     flex-wrap: wrap;
     align-content: space-around;
     background-color: #1D5D9B;
+    min-height: 460px;
 }
 .button{
     background-color: #75C2F6; 
