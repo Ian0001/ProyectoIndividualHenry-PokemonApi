@@ -2,7 +2,7 @@ import { getPokemonByName } from "../redux/actions";
 import PokemonsCards from "./pokemonsCards";
 import NavBar from "./navbar";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getPokemons } from "../redux/actions";
 import Filters from "./filters";
 import axios from "axios";
@@ -10,6 +10,7 @@ import "../styles/home.css";
 const Home = () => {
   const [found, setFound]= useState(true)//para cuando no se encuentre un pokemon
   const dispatch = useDispatch();
+  const pokemons = useSelector((state) => state.pokemons);
   const onSearch = async(name) => {
     try {
       const endpoint = `http://localhost:3001/pokemons/?name=${name}`;
@@ -23,8 +24,8 @@ const Home = () => {
     }
   };
   useEffect(() => {
-    dispatch(getPokemons());
-  }, [dispatch]);
+    if(pokemons.length===0) dispatch(getPokemons());
+  }, [dispatch, pokemons]);
 
   return (
     <div className="body">
