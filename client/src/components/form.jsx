@@ -31,8 +31,8 @@ const Form = () => {
   };
 
   const handleChange=(event)=>{
-    if(event.target.name==="image") setUrl(checkUrl(event.target.value)) 
-    if(event.target.name==="types") {
+    if(event.target.name==="image") setUrl(checkUrl(event.target.value)) //seteo url valida
+    if(event.target.name==="types") { //seteo tipos
       if(pokemonData.types.includes(event.target.value)) {
         setPokemonData({...pokemonData, types:[...pokemonData.types.filter(type=>type!==event.target.value)]})
       }
@@ -41,14 +41,14 @@ const Form = () => {
     };
     if(event.target.name==="life"||event.target.name==="attack"||event.target.name==="defense"||
     event.target.name==="weight"||event.target.name==="height"||event.target.name==="speed") {
-      if( typeof Number(event.target.value) === "number") {
+      if( typeof Number(event.target.value) === "number") { //valido q sean numeros
         return setPokemonData({
           ...pokemonData,
           [event.target.name]:Number(event.target.value)
         })
       }
     }
-    setPokemonData({
+    setPokemonData({ //seteo el pokemon
      ...pokemonData,
      [event.target.name]:event.target.value
     })
@@ -85,7 +85,7 @@ const Form = () => {
               <input id="name" className={pokemonData.name.length>0 ?"trueValidation":"falseValidation"} name="name" onChange={handleChange} value={pokemonData.name} placeholder="Debe ingresar un nombre" type="text"></input>
             </div>
             <div className="inputDivs">
-              <input id="image" className={pokemonData.image.length>0&&url===true ?"trueValidation":"falseValidation"} name="image"onChange={handleChange} value={pokemonData.image} placeholder="Debe ingresar un Url" type="text"></input>
+              <input id="image" className={pokemonData.image.length>0&&url===true ?"trueValidation":"falseValidation"} name="image"onChange={handleChange} value={pokemonData.image} placeholder="Debe ingresar un Url válido" type="text"></input>
             </div>
             <div className="inputDivs">
               <input name="life"onChange={handleChange} className={pokemonData.life>0 ?"trueValidation":"falseValidation"} value={pokemonData.life} placeholder="Vida" ></input>
