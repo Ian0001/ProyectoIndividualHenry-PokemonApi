@@ -5,16 +5,16 @@ export const FILTER_TYPE = "FILTER_TYPE";
 export const FILTER_ORIGIN = "FILTER_ORIGIN";
 
 export const getPokemons = () => {
-  try {
-    const endpoint = "http://localhost:3001/pokemons";
-    return async (dispatch) => {
+  return async (dispatch) => {
+    try {
+      const endpoint = "http://localhost:3001/pokemons";
       const apiResponse = await axios.get(endpoint);
       const { data } = apiResponse;
       dispatch({ type: GET_POKEMONS, payload: data });
-    };
-  } catch (error) {
-    console.log(error.message);
-  }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 };
 
 export const getPokemonByName = (pokemon) => {
