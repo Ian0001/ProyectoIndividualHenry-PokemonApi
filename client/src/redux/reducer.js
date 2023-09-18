@@ -1,17 +1,15 @@
-import {FILTER_ORIGIN, FILTER_TYPE, GET_POKEMONS, GET_POKEMON_BY_NAME} from "./actions";
+import {FILTER, GET_POKEMONS, GET_POKEMON_BY_NAME, ORDER} from "./actions";
 const initialState = {
   aux: [],
-  auxOrigin: [],
-  pokemons: [],
+  pokemons: []
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_POKEMONS:
       return {
         ...state,
-        pokemons: action.payload,
-        aux: action.payload,
-        auxOrigin: action.payload,
+        pokemons: action.payload.sort((a, b)=> b.attack - a.attack),
+        aux: action.payload.sort((a, b)=> b.attack - a.attack),
       };
     case GET_POKEMON_BY_NAME:
       const poke = state.pokemons.find(
@@ -32,27 +30,55 @@ const reducer = (state = initialState, action) => {
         };
       } //si no, lo agrego
       else return { ...state, pokemons: [action.payload, ...state.pokemons],
-        aux:[action.payload, ...state.aux], auxOrigin:[action.payload, ...state.auxOrigin] };
-    case FILTER_TYPE:
-      if (action.payload === "none") return { ...state, pokemons: state.aux };
-      const typeFiltered = state.aux.filter((poke) =>
-        poke.types.find((element) => element.type.name === action.payload)
-      );
-      return { ...state, pokemons: typeFiltered, auxOrigin: typeFiltered };
-    case FILTER_ORIGIN:
-      if (action.payload === "none")
-        return { ...state, pokemons: state.auxOrigin };
-      if (action.payload === "database")
+        aux:[action.payload, ...state.aux]};
+    case FILTER:
+      if(action.payload.type!=="none"&&action.payload.origin==="none") {
         return {
-          ...state,
-          pokemons: state.auxOrigin.filter(
-            (poke) => typeof poke.id !== "number"
-          ),
+        ...state,
+        pokemons: state.aux.filter((poke)=>poke.types.includes(action.payload.type))
         };
+      };
+      if(action.payload.type==="none"&&action.payload.origin!=="none") {
+        if(action.payload.origin==="api") return {
+          ...state,
+          pokemons: state.aux.filter((poke)=>typeof poke.id==="number")
+        };
+        else return {
+          ...state,
+          pokemons: state.aux.filter((poke)=>typeof poke.id==="string")
+        };
+      };
+      if(action.payload.type!=="none"&&action.payload.origin!=="none") {
+        const filteredType= state.aux.filter((poke)=>poke.types.includes(action.payload.type));
+        if(action.payload.origin==="api") return {
+          ...state,
+          pokemons: filteredType.filter((poke)=>typeof poke.id==="number")
+        };
+        else return {
+          ...state,
+          pokemons: filteredType.filter((poke)=>typeof poke.id==="string")
+        };
+      };
       return {
         ...state,
-        pokemons: state.auxOrigin.filter((poke) => typeof poke.id === "number"),
+        pokemons: state.aux
       };
+    case ORDER:
+      if(action.payload==="attackDescend") {
+        const orderedArray= [...state.pokemons].sort((a, b)=> b.attack - a.attack)
+        return {
+        ...state, pokemons: orderedArray
+        }
+      };
+      if(action.payload==="attackAscend") return {
+        ...state, pokemons: [...state.pokemons].sort((a, b)=> a.attack - b.attack)
+      };
+      if(action.payload==="azDescend") return {
+        ...state, pokemons: [...state.pokemons].sort((a, b) =>a.name.localeCompare(b.name))
+      };
+      if(action.payload==="zaAscend") return {
+        ...state, pokemons: [...state.pokemons].sort((a, b) =>b.name.localeCompare(a.name))
+      };break;
     default:
       return { ...state };
   }

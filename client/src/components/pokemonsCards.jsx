@@ -40,6 +40,7 @@ const PokemonsCards = () => {
     if(e.target.name==="4") {setStart(36); setEnd(48)}
     if(e.target.name==="5") {setStart(48); setEnd(60)}
   }
+  console.log(pokemons);
   return (
     <div>
       <div className="cards">

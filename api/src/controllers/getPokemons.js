@@ -4,7 +4,11 @@ const getPokemons= async(pokemonName) => {
     if(pokemonName) {
         //chequeo si existe en DB
         const pokemonDb= await Pokemon.findOne({where:{name:pokemonName}, include:{model:Type, attributes: ["name"]}});
-        if(pokemonDb)  return pokemonDb;
+        if(pokemonDb) {
+            const pokemonDbMod= await pokemonDb.toJSON();
+            pokemonModified= pokemonDbMod.types.map((poke)=>poke.name);
+            return {...pokemonDbMod, types: pokemonModified};
+        };  
         //si no existe en DB lo busco en api
         const apiResponse= await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
         const name= apiResponse.data.name;
@@ -15,7 +19,7 @@ const getPokemons= async(pokemonName) => {
         const speed=apiResponse.data.stats.find((element)=>element.stat.name==="speed").base_stat;
         const height=apiResponse.data.height;
         const weight=apiResponse.data.weight;
-        const types= apiResponse.data.types;
+        const types= apiResponse.data.types.map((element)=>element.type.name);
         const id= apiResponse.data.id;
         const pokemon= {id, name, image, life, attack, defense, speed, height, weight, types};
         return pokemon;
@@ -26,10 +30,11 @@ const getPokemons= async(pokemonName) => {
         const urlResponse=await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`);
         const urlData= urlResponse.data;
         const image= urlData.sprites.front_default;
-        const types= urlData.types;
+        const types= urlData.types.map((element)=>element.type.name);
         const name=urlData.name;
         const id=urlData.id;
-        return {name, image, types, id};
+        const attack=urlData.stats.find((element)=>element.stat.name==="attack").base_stat;
+        return {name, image, types, id, attack};
     }));
     return pokemons;
 }

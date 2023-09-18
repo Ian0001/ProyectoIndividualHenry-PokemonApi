@@ -1,22 +1,39 @@
 import { useDispatch } from "react-redux";
-import { filterPokemonByOrigin, filterPokemonByType, getPokemons } from "../redux/actions";
+import { filterPokemon, getPokemons, orderPokemon } from "../redux/actions";
 import "../styles/filters.css"
+import { useState, useEffect } from "react";
 const Filters = () => {
+  const [type, setType]= useState("none");
+  const [origin, setOrigin]= useState("none");
+  const [order, setOrder]= useState("attackDescend");
   const dispatch = useDispatch();
-  const handleFilterType = (event) => {
-    dispatch(filterPokemonByType(event.target.value));
+
+  const handleFilter = (event) => {
+    if(event.target.name==="selecttype") setType(event.target.value)
+    else setOrigin(event.target.value);
   };
-  const handleFilterOrigin = (event) => {
-    dispatch(filterPokemonByOrigin(event.target.value));
+
+  const handleOrder = (event) => {
+    setOrder(event.target.value)
   };
+  
+  useEffect(()=> {
+    dispatch(orderPokemon(order))
+  }, [order, dispatch]);
+
+  useEffect(() => {
+    dispatch(filterPokemon(type, origin));
+  }, [type, origin, dispatch]);
+ 
   const reset=()=>{
     dispatch(getPokemons())
   };
+
   return (
     <div className="filters">
       <button className="button" onClick={reset}>Reset Pokemons</button>
       <label className="element">Filter Type</label>
-      <select className="select" onChange={handleFilterType} name="selecttype">
+      <select className="select" onChange={handleFilter} name="selecttype">
         <option value="none">None</option>
         <option value="normal">Normal</option>
         <option value="fighting">Fighting</option>
@@ -39,10 +56,17 @@ const Filters = () => {
         <option value="shadow">Shadow</option>
       </select>
       <label className="element">Filter Origin</label>
-      <select className="select" onChange={handleFilterOrigin} name="selectorigin">
+      <select className="select" onChange={handleFilter} name="selectorigin">
         <option value="none">None</option>
         <option value="api">Api</option>
         <option value="database">Database</option>
+      </select>
+      <label className="element">Ordenar </label>
+      <select className="select" onChange={handleOrder} name="order">
+        <option value="attackDescend">Ataque descendente</option>
+        <option value="attackAscend">Ataque ascendente</option>
+        <option value="azDescend">A - Z</option>
+        <option value="zaAscend">Z - A</option>
       </select>
     </div>
   );

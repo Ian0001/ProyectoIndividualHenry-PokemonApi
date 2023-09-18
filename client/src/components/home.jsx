@@ -10,7 +10,7 @@ import "../styles/home.css";
 const Home = () => {
   const [found, setFound]= useState(true)//para cuando no se encuentre un pokemon
   const dispatch = useDispatch();
-  const pokemons = useSelector((state) => state.pokemons);
+  const aux = useSelector((state) => state.aux);
   const onSearch = async(name) => {
     try {
       const endpoint = `http://localhost:3001/pokemons/?name=${name}`;
@@ -24,8 +24,8 @@ const Home = () => {
     }
   };
   useEffect(() => {
-    if(pokemons.length===0) dispatch(getPokemons());
-  }, [dispatch, pokemons]);
+    if(aux.length===0) dispatch(getPokemons());
+  }, [dispatch, aux]);
 
   return (
     <div className="body">

@@ -34,7 +34,7 @@ const Detail = () => {
           <h3>
             Types:
             {detail.types?.map((element) => (
-              <li key={element.name?element.name:element}>{element.name?element.name:element}</li>
+              <li key={element}>{element}</li>
             ))}
           </h3>
         </div>

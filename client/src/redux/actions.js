@@ -1,8 +1,9 @@
 import axios from "axios";
 export const GET_POKEMONS = "GET_POKEMONS";
 export const GET_POKEMON_BY_NAME = "GET_POKEMON_BY_NAME";
-export const FILTER_TYPE = "FILTER_TYPE";
-export const FILTER_ORIGIN = "FILTER_ORIGIN";
+export const FILTER = "FILTER";
+export const ORDER = "ORDER";
+
 
 export const getPokemons = () => {
   return async (dispatch) => {
@@ -18,20 +19,20 @@ export const getPokemons = () => {
 };
 
 export const getPokemonByName = (pokemon) => {
-  try {
-    if(pokemon.id.length>4) {//para los de la DB
-      pokemon.types= pokemon.types?.map((element)=> ({type:{name:element.name}}))
-    };
-    return async (dispatch) => {
+  return async (dispatch) => {
+    try {
       dispatch({ type: GET_POKEMON_BY_NAME, payload: pokemon });
-    };
-  } catch (error) {
-    console.log(error.message);
-  }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 };
-export const filterPokemonByType = (type) => {
-  return { type: FILTER_TYPE, payload: type };
+
+export const filterPokemon = (type, origin) => {
+  return { type: FILTER, payload: {type: type, origin: origin} };
 };
-export const filterPokemonByOrigin = (origin) => {
-  return { type: FILTER_ORIGIN, payload: origin };
+
+export const orderPokemon = (order) => {
+  return { type: ORDER, payload: order }
 };
+
