@@ -29,3 +29,8 @@
 .offPage{
     background-color: aliceblue;
 }
+.loading{
+    margin-left: 45%;
+    font-size: larger;
+    color: antiquewhite;
+}

@@ -2,8 +2,6 @@ import axios from "axios";
 export const GET_POKEMONS = "GET_POKEMONS";
 export const GET_POKEMON_BY_NAME = "GET_POKEMON_BY_NAME";
 export const FILTER = "FILTER";
-export const ORDER = "ORDER";
-
 
 export const getPokemons = () => {
   return async (dispatch) => {
@@ -28,11 +26,8 @@ export const getPokemonByName = (pokemon) => {
   };
 };
 
-export const filterPokemon = (type, origin) => {
-  return { type: FILTER, payload: {type: type, origin: origin} };
+export const filterPokemon = (type, origin, order) => {
+  return { type: FILTER, payload: {type: type, origin: origin, order: order} };
 };
 
-export const orderPokemon = (order) => {
-  return { type: ORDER, payload: order }
-};
 

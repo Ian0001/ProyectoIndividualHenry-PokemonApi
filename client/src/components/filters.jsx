@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { filterPokemon, getPokemons, orderPokemon } from "../redux/actions";
+import { filterPokemon, getPokemons } from "../redux/actions";
 import "../styles/filters.css"
 import { useState, useEffect } from "react";
 const Filters = () => {
@@ -9,21 +9,14 @@ const Filters = () => {
   const dispatch = useDispatch();
 
   const handleFilter = (event) => {
-    if(event.target.name==="selecttype") setType(event.target.value)
+    if(event.target.name==="selecttype") setType(event.target.value);
+    else if(event.target.name==="order") setOrder(event.target.value);
     else setOrigin(event.target.value);
   };
 
-  const handleOrder = (event) => {
-    setOrder(event.target.value)
-  };
-  
-  useEffect(()=> {
-    dispatch(orderPokemon(order))
-  }, [order, dispatch]);
-
   useEffect(() => {
-    dispatch(filterPokemon(type, origin));
-  }, [type, origin, dispatch]);
+    dispatch(filterPokemon(type, origin, order));
+  }, [type, origin, order, dispatch]);
  
   const reset=()=>{
     dispatch(getPokemons())
@@ -62,7 +55,7 @@ const Filters = () => {
         <option value="database">Database</option>
       </select>
       <label className="element">Ordenar </label>
-      <select className="select" onChange={handleOrder} name="order">
+      <select className="select" onChange={handleFilter} name="order">
         <option value="attackDescend">Ataque descendente</option>
         <option value="attackAscend">Ataque ascendente</option>
         <option value="azDescend">A - Z</option>

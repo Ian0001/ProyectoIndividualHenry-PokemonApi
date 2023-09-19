@@ -4,7 +4,7 @@
     align-items: center;
     height:400px;
     justify-content: center;
-    background-color: #5791ca;
+    background-color: #75C2F6;
     
 }
 .inputs{
@@ -55,8 +55,8 @@
    
     border-color: green;
 }
-.button{
-    background-color: #75C2F6; 
+.buttonForm{
+    background-color: #328d3a; 
     border: none;
     padding: 10px 20px;
     text-align: center;
@@ -68,7 +68,7 @@
     width: 180px;
 }
 .bottom{
-    background-color: #5791ca;
+    background-color: #75C2F6;
     height: 100vh;
     
 }

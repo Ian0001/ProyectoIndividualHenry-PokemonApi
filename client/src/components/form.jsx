@@ -157,7 +157,7 @@ const Form = () => {
         {(pokemonData.name.length&&pokemonData.image.length&&pokemonData.types.length&&
         pokemonData.life>0&&pokemonData.attack>0&&pokemonData.defense>0&&pokemonData.speed>0&&
         pokemonData.height>0&&pokemonData.weight>0&&url===true)
-        ?<button className="button" onClick={handleSubmit} type="submit">Submit Pokemon!</button>
+        ?<button className="buttonForm" onClick={handleSubmit} type="submit">Submit Pokemon!</button>
         :<p className="falseValidation">Complete los campos obligatorios!</p>}
       </div>
     </div>
